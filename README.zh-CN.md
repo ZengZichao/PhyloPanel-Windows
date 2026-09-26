@@ -56,7 +56,7 @@ PhyloPanel 始终把命令行工具当作唯一的事实来源——它一个命
 ## 快速开始
 
 1. 从 [Releases](https://github.com/ZengZichao/PhyloPanel-Windows/releases/latest) 下载
-   **PhyloPanel-0.1.0-win-x64.exe** —— 单个自包含文件，没有安装程序。
+   `PhyloPanel-<版本>-win-x64.exe` 附件 —— 单个自包含文件，没有安装程序。
 2. 双击运行。状态栏应当显示
    `GoTree  ·  v0.5.2  ·  82 个可执行命令 / 35 个顶层命令族`。
 3. 在**输入**区里，要么直接粘贴 Newick 字符串，要么输入/选择树文件路径。

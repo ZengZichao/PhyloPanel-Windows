@@ -1,6 +1,6 @@
 [package]
 name = "phylopanel"
-version = "0.1.0"
+version = "0.1.1"
 description = "Windows GUI panel for cobra-based phylogenetics CLIs (GoTree embedded; any cobra CLI reflected)"
 license = "Apache-2.0"
 edition = "2021"

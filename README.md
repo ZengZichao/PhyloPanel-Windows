@@ -61,7 +61,7 @@ building each step by hand. See [Command coverage](docs/en/command-reference.md)
 
 ## Quick start
 
-1. Download **PhyloPanel-0.1.0-win-x64.exe** from the
+1. Download the `PhyloPanel-<version>-win-x64.exe` asset from the
    [latest release](https://github.com/ZengZichao/PhyloPanel-Windows/releases/latest) —
    one self-contained file, no installer.
 2. Run it. The status line should report
