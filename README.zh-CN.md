@@ -1,7 +1,8 @@
 # PhyloPanel
 
-系统发育学命令行工具（基于 [cobra](https://github.com/spf13/cobra) 构建，目前支持
-**GoTree** 与 **GoAlign**）的 Windows 图形操作面板。
+基于 [cobra](https://github.com/spf13/cobra) 构建的系统发育学命令行工具 Windows 图形操作面板。
+**内置 GoTree v0.5.2**，装好即用；反射引擎本身是通用的，把面板指向其他任意 cobra 程序（例如
+GoAlign）就会变成那个程序的面板。
 
 它会反射你所指定的可执行文件的完整命令树，把每个命令变成带类型校验的表单，用真实的
 操作系统管道把多个命令串起来，并显示它实际执行的等价命令行。GUI 从不隐藏任何东西：
@@ -38,7 +39,19 @@ PhyloPanel 始终把命令行工具当作唯一的事实来源——它一个命
 | 参数表单 | 类型化输入框、路径类参数带文件选择器、枚举参数带下拉框 |
 | 结果展示 | 树、统计表、SVG 与 PNG 图形直接在界面内渲染 |
 | 导出 | 输出可另存为 `.tree` / `.svg` / `.png` / `.txt`，或复制等价命令行 |
-| 换工具也能用 | 指向任意 cobra 程序，它就变成那个程序的面板 |
+| 换工具也能用 | 指向任意 cobra 程序，它就变成那个程序的面板（仅反射；目前只有 GoTree 有人工整理的预设） |
+
+## 到底打包了什么
+
+| 工具 | 是否内置在 exe 里 | 预设 + 位置参数提示 |
+|---|---|---|
+| **GoTree v0.5.2** | 是，首次启动自动解出 | 有，整理在 `src-tauri/toolpacks/gotree.json` |
+| **GoAlign** | 否，需自备 `goalign.exe` | **暂无** —— 还没有 GoAlign 工具包 |
+| 其他任意 cobra 程序 | 否 | 除非你自己加工具包 |
+
+反射本身是通用的：不论哪个工具，命令、参数、类型、默认值都会照常列出来。*工具包*额外补的是
+`--help` 表达不了的那一层——预设工作流，以及某些命令必需的裸位置参数。所以现在驱动 GoAlign，
+每一步都得手工搭。详见[命令覆盖](docs/zh/command-reference.md)。
 
 ## 快速开始
 
@@ -92,7 +105,7 @@ PhyloPanel 是一个 Tauri v2 应用：Rust 后端负责进程，WebView2 窗口
 | [界面详解](docs/zh/interface.md) | 逐个区域、控件与状态提示的说明 |
 | [工作流与管道](docs/zh/workflows.md) | 多步串联、预设、参数规则、位置参数 |
 | [语言与主题](docs/zh/language-and-theme.md) | 哪些内容会被翻译、哪些不会、选择存在哪里 |
-| [命令覆盖](docs/zh/command-reference.md) | 命令表如何反射、GoTree 命令组、接入 GoAlign |
+| [命令覆盖](docs/zh/command-reference.md) | 命令表如何反射、GoTree 命令组、如何为其他 CLI 写工具包 |
 | [从源码构建](docs/zh/building-from-source.md) | 工具链、开发调试、发布构建、跑测试 |
 | [故障排查](docs/zh/troubleshooting.md) | 常见失败与如何读懂它们 |
 
@@ -144,12 +157,12 @@ Copyright 2026 ZengZichao
 本程序依据 Apache License 2.0 发布，全文见 LICENSE 文件。
 ```
 
-PhyloPanel 是一个独立的程序，它以子进程方式启动
-[GoTree](https://github.com/choishingwan/GoTree) 和
-[GoAlign](https://github.com/choishingwan/GoAlign)，并通过管道与它们通信。它不链接、也不引入
-两者的任何代码，因此双方始终是相互独立、各自持证的作品。两个上游工具均为 GNU GPL v2，其许可
-证文本与著作权仍归其作者，GPL-2.0 全文已原样收录在
-[LICENSES/GPL-2.0.txt](LICENSES/GPL-2.0.txt)。
+PhyloPanel 是一个独立的程序，它以子进程方式启动 [GoTree](https://github.com/choishingwan/GoTree)
+并通过管道与它通信——对你自己提供的其他 cobra 程序（例如
+[GoAlign](https://github.com/choishingwan/GoAlign)）也同样如此。它不链接、也不引入两者的任何
+代码，因此双方始终是相互独立、各自持证的作品。两个上游工具均为 GNU GPL v2，其许可证文本与
+著作权仍归其作者，GPL-2.0 全文已原样收录在
+[LICENSES/GPL-2.0.txt](LICENSES/GPL-2.0.txt)。本仓库与发布的 exe 中都不含 GoAlign 的任何副本。
 
 内置的 `src-tauri/tools/gotree.exe` 是 GoTree v0.5.2 的未修改构建产物——只按上游 Makefile 本来
 的做法注入了版本字符串。它对应的源码就是上述上游仓库的该 tag，本项目不对其附加任何超出 GPL v2

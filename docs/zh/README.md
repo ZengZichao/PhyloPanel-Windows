@@ -8,7 +8,7 @@
 | [界面详解](interface.md) | 想知道每个控件、标记和状态提示是什么意思 |
 | [工作流与管道](workflows.md) | 想串联多个命令，或想搞明白某个参数为什么没出现在命令行里 |
 | [语言与主题](language-and-theme.md) | 想切换中英文，或切换浅色/深色 |
-| [命令覆盖](command-reference.md) | 想知道反射了什么、缓存怎么工作、怎么接入 GoAlign |
+| [命令覆盖](command-reference.md) | 想知道反射了什么、缓存怎么工作、以及驱动没有工具包的工具（比如 GoAlign）会少了哪些东西 |
 | [从源码构建](building-from-source.md) | 自己编译，或要新增语言/主题/工具包 |
 | [故障排查](troubleshooting.md) | 出了问题，而提示看不明白 |
 

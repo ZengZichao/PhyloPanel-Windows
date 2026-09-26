@@ -6,7 +6,7 @@ type Table = Record<string, string>;
 
 const zh: Table = {
   "header.binary": "可执行文件",
-  "header.binaryPlaceholder": "gotree.exe 或 goalign.exe 的完整路径",
+  "header.binaryPlaceholder": "内置 gotree 的路径，也可以是任意其他 cobra 程序",
   "header.choose": "选择…",
   "header.builtin": "用内置 GoTree",
   "header.builtinTitle": "解出程序内置的 gotree，无需另外安装命令行工具",
@@ -96,7 +96,7 @@ const zh: Table = {
 
 const en: Table = {
   "header.binary": "Executable",
-  "header.binaryPlaceholder": "Full path to gotree.exe or goalign.exe",
+  "header.binaryPlaceholder": "Path to the bundled gotree, or to any other cobra CLI",
   "header.choose": "Browse…",
   "header.builtin": "Use bundled GoTree",
   "header.builtinTitle": "Extracts the gotree binary shipped inside PhyloPanel, so nothing else has to be installed",

@@ -79,8 +79,14 @@ Two documentation traps worth knowing: `monophyletic` lives **under** `stats`
 
 ## Driving GoAlign or any other cobra CLI
 
-Point **Executable** at `goalign.exe` and the same reflection produces a GoAlign panel. The
-mechanism is generic; what is tool-specific lives in the *tool pack*.
+Point **Executable** at `goalign.exe` and the same reflection lists every GoAlign command and
+flag, and pipelines between them work. **But GoAlign is not embedded in the download, and it
+has no tool pack yet**, so what you lose is the curated layer: no preset workflow buttons, no
+positional-argument boxes, and `imageCommands` falls back to GoTree's `draw svg/png/cyjs` names
+so picture detection will not match GoAlign's output. Build each step by hand, or write the
+pack described below.
+
+The mechanism is generic; what is tool-specific lives in the *tool pack*.
 
 ### The tool pack
 

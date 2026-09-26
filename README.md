@@ -1,7 +1,9 @@
 # PhyloPanel
 
 A Windows graphical panel for phylogenetics command-line tools built with
-[cobra](https://github.com/spf13/cobra) — currently **GoTree** and **GoAlign**.
+[cobra](https://github.com/spf13/cobra). **GoTree v0.5.2 is embedded** and works out of the
+box; the reflection engine is generic, so pointing the panel at any other cobra CLI — GoAlign
+among them — turns it into a panel for that tool.
 
 It reflects the whole command tree of whichever executable you point it at, turns every
 command into a form with validated fields, chains commands with real OS pipes, and shows
@@ -42,7 +44,20 @@ and removes the typing burden instead:
 | Flag forms | Typed inputs, file pickers for path-like flags, choice menus for enumerated flags |
 | Results | Trees, statistics tables, SVG and PNG drawings rendered inline |
 | Export | Save output to `.tree` / `.svg` / `.png` / `.txt`, or copy the command line |
-| Works with other CLIs | Point it at any cobra binary and it becomes a panel for that binary |
+| Works with other CLIs | Point it at any cobra binary and it becomes a panel for that binary (reflection only — curated presets exist for GoTree today) |
+
+## What actually ships
+
+| Tool | Embedded in the exe | Presets + positional hints |
+|---|---|---|
+| **GoTree v0.5.2** | Yes — unpacked on first launch | Yes, curated in `src-tauri/toolpacks/gotree.json` |
+| **GoAlign** | No — supply your own `goalign.exe` | **Not yet** — there is no GoAlign tool pack |
+| Any other cobra CLI | No | Not unless you add a tool pack |
+
+Reflection itself is generic: every command, flag, type and default shows up regardless of
+tool. What a *tool pack* adds is the layer `--help` cannot express — preset workflows, and the
+bare positional arguments that some commands require. Driving GoAlign today therefore means
+building each step by hand. See [Command coverage](docs/en/command-reference.md).
 
 ## Quick start
 
@@ -104,7 +119,7 @@ which keeps the produced command line short and the results identical to hand ty
 | [Interface tour](docs/en/interface.md) | Every region, control and status message explained |
 | [Workflows and pipelines](docs/en/workflows.md) | Multi-step chains, presets, flag rules, positional arguments |
 | [Language and theme](docs/en/language-and-theme.md) | What is translated, what is not, where the choice is stored |
-| [Command coverage](docs/en/command-reference.md) | How the tree is reflected, GoTree command groups, adding GoAlign |
+| [Command coverage](docs/en/command-reference.md) | How the tree is reflected, GoTree command groups, writing a tool pack for another CLI |
 | [Building from source](docs/en/building-from-source.md) | Toolchain, dev loop, release build, running tests |
 | [Troubleshooting](docs/en/troubleshooting.md) | Common failures and how to read them |
 
@@ -159,11 +174,12 @@ Licensed under the Apache License, Version 2.0. See LICENSE for the full text.
 ```
 
 PhyloPanel is a separate program that starts [GoTree](https://github.com/choishingwan/GoTree)
-and [GoAlign](https://github.com/choishingwan/GoAlign) as child processes and talks to them
-over pipes. It never links against or imports their code, so the two stay independently
-licensed works. Both upstream tools are GNU GPL v2, and their licence text and copyright
-remain theirs; the full GPL-2.0 text is reproduced at
-[LICENSES/GPL-2.0.txt](LICENSES/GPL-2.0.txt).
+as a child process and talks to it over pipes — and likewise for any other cobra CLI you
+supply yourself, such as [GoAlign](https://github.com/choishingwan/GoAlign). It never links
+against or imports their code, so the two stay independently licensed works. Both upstream
+tools are GNU GPL v2, and their licence text and copyright remain theirs; the full GPL-2.0
+text is reproduced at [LICENSES/GPL-2.0.txt](LICENSES/GPL-2.0.txt). No copy of GoAlign is
+included in this repository or in the released executable.
 
 The embedded `src-tauri/tools/gotree.exe` is an unmodified build of GoTree v0.5.2 — only the
 linker-injected version string is set, exactly as upstream's own Makefile does. Its

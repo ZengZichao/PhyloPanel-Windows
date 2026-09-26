@@ -91,7 +91,10 @@ Presets are a starting point, not a locked mode: edit, reorder or remove any ste
 
 The **Executable** field at the top left is editable. Type a full path, or press **Browse…**
 and pick any cobra-based CLI — `goalign.exe`, for instance. The panel re-reflects and becomes
-a panel for that tool. Press **Use bundled GoTree** to jump back to the embedded binary.
+a panel for that tool: every command and flag appears, and pipelines work. Only GoTree is
+embedded in the download, and only GoTree has preset workflows today — see
+[Command coverage](command-reference.md) for what a tool without a pack does and does not get.
+Press **Use bundled GoTree** to jump back to the embedded binary.
 
 ## Next
 

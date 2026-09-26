@@ -42,7 +42,7 @@ pub enum FlagKind {
     Duration,
 }
 
-/// Semantic role. gotree/goalign are inconsistent about whether `--input` is a local or a
+/// Semantic role. GoTree itself is inconsistent about whether `--input` is a local or a
 /// persistent flag, so the UI keys off this rather than off which cobra block it came from.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

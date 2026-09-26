@@ -9,7 +9,7 @@ stands on its own.
 | [Interface tour](interface.md) | You want to know what every control, badge and status message means |
 | [Workflows and pipelines](workflows.md) | You want to chain commands, or understand why a flag did or did not reach the command line |
 | [Language and theme](language-and-theme.md) | You want to switch between Chinese and English, or light and dark |
-| [Command coverage](command-reference.md) | You want to know what is reflected, how caching works, or how to drive GoAlign |
+| [Command coverage](command-reference.md) | You want to know what is reflected, how caching works, or what driving a CLI without a tool pack (such as GoAlign) gets you |
 | [Building from source](building-from-source.md) | You are compiling the app yourself or adding a command |
 | [Troubleshooting](troubleshooting.md) | Something failed and the message is not obvious |
 
