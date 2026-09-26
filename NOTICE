@@ -1,0 +1,72 @@
+PhyloPanel
+Copyright 2026 ZengZichao
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+
+------------------------------------------------------------------------------
+Bundled third-party program: GoTree
+------------------------------------------------------------------------------
+
+This product ships a compiled build of GoTree, embedded in the PhyloPanel
+executable as `src-tauri/tools/gotree.exe` and unpacked at first launch.
+
+    Project:   GoTree
+    Upstream:  https://github.com/choishingwan/GoTree
+    Version:   v0.5.2  (the binary is an unmodified build of that release;
+               only the linker-injected version string was set, as upstream's
+               own Makefile does)
+    Author:    Hing Wan Chang and the GoTree contributors
+    Licence:   GNU General Public License, version 2
+               (full text reproduced at LICENSES/GPL-2.0.txt)
+
+PhyloPanel is a separate program. It never links against, imports or embeds
+GoTree source code: it starts GoTree as an independent child process and
+exchanges data over standard input and standard output. The two programs
+therefore remain separate and independently licensed works, and the Apache
+License 2.0 above applies only to PhyloPanel's own sources.
+
+GoTree's source code corresponding to the bundled binary is available from the
+upstream repository above, at the tag named there. No restriction is imposed on
+recipients of GoTree beyond the GNU GPL v2 under which upstream provides it.
+
+
+------------------------------------------------------------------------------
+Supported but not bundled: GoAlign
+------------------------------------------------------------------------------
+
+PhyloPanel can also drive GoAlign, which is distributed separately under the GNU
+General Public License, version 2, by its own authors:
+
+    https://github.com/choishingwan/GoAlign
+
+No copy of GoAlign is included in this repository or in the released executable.
+
+
+------------------------------------------------------------------------------
+Third-party libraries
+------------------------------------------------------------------------------
+
+PhyloPanel links against open-source libraries whose own licences are reproduced
+by their distributors:
+
+    Tauri 2 and its crates  (MIT / Apache-2.0)
+    Rust core and std       (MIT / Apache-2.0)
+    serde, serde_json       (MIT / Apache-2.0)
+    base64                  (MIT / Apache-2.0)
+    Vite, TypeScript        (MIT)
+    @tauri-apps/api,
+    @tauri-apps/plugin-dialog,
+    @tauri-apps/cli         (MIT / Apache-2.0)
+
+The complete dependency list with licence identifiers is recorded in
+`src-tauri/Cargo.lock` and `package-lock.json`.

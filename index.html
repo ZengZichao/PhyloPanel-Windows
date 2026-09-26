@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>PhyloPanel</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+  <body>
+    <header class="bar">
+      <div class="tool">
+        <label for="binarypath" data-i18n="header.binary">可执行文件</label>
+        <input
+          id="binarypath"
+          type="text"
+          spellcheck="false"
+          data-i18n-placeholder="header.binaryPlaceholder"
+          placeholder="gotree.exe 或 goalign.exe 的完整路径"
+        />
+        <button id="choose" class="ghost" type="button" data-i18n="header.choose">选择…</button>
+        <button
+          id="builtin"
+          class="ghost"
+          type="button"
+          data-i18n="header.builtin"
+          data-i18n-title="header.builtinTitle"
+          title="解出程序内置的 gotree，无需另外安装命令行工具"
+        >
+          用内置 GoTree
+        </button>
+        <button id="refresh" class="ghost" type="button" data-i18n="header.refresh">重新反射命令表</button>
+      </div>
+
+      <div class="side">
+        <div class="presets">
+          <span class="hint" data-i18n="header.presets">预设工作流</span>
+          <div id="templates" class="templates"></div>
+        </div>
+        <div class="appearance">
+          <div class="pref">
+            <label class="hint" for="lang" data-i18n="header.language">语言</label>
+            <select id="lang">
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="pref">
+            <label class="hint" for="theme" data-i18n="header.theme">主题</label>
+            <select id="theme">
+              <option value="auto" data-i18n="theme.auto">跟随系统</option>
+              <option value="light" data-i18n="theme.light">浅色</option>
+              <option value="dark" data-i18n="theme.dark">深色</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <p id="statusline" class="status">正在启动…</p>
+
+    <main class="grid">
+      <section class="col">
+        <h2 data-i18n="panel.commands">命令表</h2>
+        <input
+          id="search"
+          type="search"
+          spellcheck="false"
+          data-i18n-placeholder="panel.searchPlaceholder"
+          placeholder="搜索命令或说明"
+        />
+        <div id="cmdtree" class="tree"></div>
+      </section>
+
+      <section class="col">
+        <h2 data-i18n="panel.input">输入</h2>
+        <div class="modes">
+          <label>
+            <input type="radio" name="inputmode" value="file" checked />
+            <span data-i18n="panel.inputFile">树文件（传 --input）</span>
+          </label>
+          <label>
+            <input type="radio" name="inputmode" value="text" />
+            <span data-i18n="panel.inputPaste">直接粘贴</span>
+          </label>
+        </div>
+        <div id="inputfile">
+          <input
+            id="path"
+            type="text"
+            spellcheck="false"
+            data-i18n-placeholder="panel.pathPlaceholder"
+            placeholder="F:\\trees\\my.tre（支持 .gz / http:// / itol://）"
+          />
+        </div>
+        <div id="inputtext" hidden>
+          <textarea
+            id="tree"
+            rows="6"
+            spellcheck="false"
+            placeholder="(1:0.1,(2:0.2,3:0.3)int:0.4)root;"
+          ></textarea>
+        </div>
+
+        <h2 id="formtitle">参数</h2>
+        <div id="form" class="formhost"></div>
+      </section>
+
+      <section class="col">
+        <h2 data-i18n="panel.workflow">工作流</h2>
+        <ol id="steps" class="steps"></ol>
+        <div class="row-btns">
+          <button id="run" class="primary" type="button" data-i18n="panel.run">运行</button>
+          <button id="clear" class="ghost" type="button" data-i18n="panel.clear">清空</button>
+        </div>
+
+        <h2 data-i18n="panel.cmdline">等价命令行</h2>
+        <div class="cmdline">
+          <code id="preview"></code>
+          <button id="copy" class="ghost" type="button" data-i18n="panel.copy">复制</button>
+        </div>
+
+        <h2 data-i18n="panel.result">结果</h2>
+        <div class="row-btns">
+          <button id="saveout" class="ghost" type="button" disabled data-i18n="panel.saveOutput">
+            保存输出…
+          </button>
+        </div>
+        <div id="output" class="output"></div>
+      </section>
+    </main>
+  </body>
+</html>

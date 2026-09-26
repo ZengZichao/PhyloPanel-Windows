@@ -1,0 +1,21 @@
+[package]
+name = "phylopanel"
+version = "0.1.0"
+description = "Windows GUI panel for cobra-based phylogenetics CLIs (gotree, goalign)"
+license = "Apache-2.0"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "phylo_panel"
+path = "src/lib.rs"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"

@@ -1,0 +1,83 @@
+{
+  "displayName": "GoTree",
+  "imageCommands": ["draw svg", "draw png", "draw cyjs"],
+  "positional": {
+    "reroot outgroup": {
+      "label": "outgroup tips",
+      "labelZh": "外群分类单元",
+      "help": "Tip names defining the outgroup, separated by spaces. Alternatively use --tip-file.",
+      "helpZh": "定义外群的分类单元名称，用空格分隔；也可以改用 --tip-file 传文件。",
+      "minimum": 1
+    },
+    "collapse clade": {
+      "label": "clade tips",
+      "labelZh": "目标支系",
+      "help": "Tip names defining the clade to collapse.",
+      "helpZh": "指定需要合并（塌缩）的支系，填入其分类单元名称。",
+      "minimum": 1
+    },
+    "prune": {
+      "label": "tip names",
+      "labelZh": "待删除的分类单元",
+      "help": "Tip names to remove from the tree.",
+      "helpZh": "要从树中移除的分类单元名称。",
+      "minimum": 1
+    },
+    "upload itol": {
+      "label": "tree files",
+      "labelZh": "树文件",
+      "help": "Tree files to upload to iTOL.",
+      "helpZh": "要上传到 iTOL 的树文件。",
+      "minimum": 1
+    }
+  },
+  "templates": [
+    {
+      "name": "Mid-point reroot then draw",
+      "nameZh": "中点根化后绘图",
+      "description": "Reroot on the midpoint and render a 900px square SVG.",
+      "descriptionZh": "按中点重新根化，并输出 900 像素见方的 SVG。",
+      "steps": [
+        { "command": "reroot midpoint", "flags": {} },
+        { "command": "draw svg", "flags": { "width": 900, "height": 900 } }
+      ]
+    },
+    {
+      "name": "Collapse weak branches then draw",
+      "nameZh": "合并弱支持率分支后绘图",
+      "description": "Collapse branches below a support cutoff, then render.",
+      "descriptionZh": "先合并支持率低于阈值的分支，再输出树图。",
+      "steps": [
+        { "command": "collapse support", "flags": { "support": 0.7 } },
+        { "command": "draw svg", "flags": { "width": 900, "height": 900, "with-branch-support": true } }
+      ]
+    },
+    {
+      "name": "Radial layout",
+      "nameZh": "辐射布局",
+      "description": "Keep topology as-is and render the radial layout.",
+      "descriptionZh": "不改动拓扑结构，直接输出辐射状树图。",
+      "steps": [
+        { "command": "draw svg", "flags": { "radial": true, "width": 900, "height": 900 } }
+      ]
+    },
+    {
+      "name": "Tree statistics",
+      "nameZh": "树统计",
+      "description": "Print the statistics table. This consumes the tree, so it ends a chain.",
+      "descriptionZh": "打印统计表。该命令会消费掉树，因此只能作为链条的最后一步。",
+      "terminal": true,
+      "steps": [{ "command": "stats", "flags": {} }]
+    },
+    {
+      "name": "Robinson-Foulds comparison",
+      "nameZh": "Robinson-Foulds 比较",
+      "description": "Compare the input tree against a second tree.",
+      "descriptionZh": "把输入的树与另一棵参考树做拓扑比较。",
+      "terminal": true,
+      "steps": [
+        { "command": "compare trees", "flags": { "rf": true } }
+      ]
+    }
+  ]
+}

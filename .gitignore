@@ -1,0 +1,11 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+schema-*.json
+.DS_Store
+
+# Build outputs stay out of git, but the gotree binary embedded via include_bytes! is
+# source: without it the app cannot ship as a single self-contained exe.
+*.exe
+!src-tauri/tools/*.exe
