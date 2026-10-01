@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/ZengZichao/PhyloPanel-Windows/blob/main/docs/en/README.md
+    about: Detailed usage documentation before filing an issue

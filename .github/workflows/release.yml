@@ -1,0 +1,87 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (defaults to v<package.json version>)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build windows exe and open draft release
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+
+      - name: Cache Rust build
+        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: src-tauri
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve version and tag
+        id: meta
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $tag = "${{ inputs.tag }}"
+          if ([string]::IsNullOrEmpty($tag) -and $env:GITHUB_REF_TYPE -eq 'tag') { $tag = $env:GITHUB_REF_NAME }
+          if ([string]::IsNullOrEmpty($tag)) { $tag = "v$version" }
+          "version=$version" | Out-File -Append -Encoding ascii $env:GITHUB_OUTPUT
+          "tag=$tag" | Out-File -Append -Encoding ascii $env:GITHUB_OUTPUT
+
+      - name: Build Tauri app
+        run: npx tauri build --no-bundle
+
+      - name: Collect artifacts and checksum
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.meta.outputs.version }}
+        run: |
+          $exe = Get-ChildItem src-tauri/target/release -Filter *.exe |
+            Where-Object { $_.Length -gt 1MB } | Select-Object -First 1
+          if (-not $exe) { Write-Error 'No release executable found under src-tauri/target/release'; exit 1 }
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item $exe.FullName "dist/PhyloPanel-$env:VERSION-win-x64.exe"
+          $hash = (Get-FileHash "dist/PhyloPanel-$env:VERSION-win-x64.exe" -Algorithm SHA256).Hash.ToLower()
+          "$hash  PhyloPanel-$env:VERSION-win-x64.exe" | Out-File -Encoding ascii "dist/PhyloPanel-$env:VERSION-win-x64.exe.sha256"
+          Get-ChildItem dist
+
+      - name: Create draft release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          VERSION: ${{ steps.meta.outputs.version }}
+          SHA: ${{ github.sha }}
+        run: |
+          if (gh release view "$env:TAG" 2>$null) {
+            Write-Error "Release $env:TAG already exists; refusing to overwrite. Bump the version (package.json, src-tauri/Cargo.toml, src-tauri/tauri.conf.json) or delete the existing draft first."
+            exit 1
+          }
+          gh release create "$env:TAG" --draft --target "$env:SHA" `
+            --title "PhyloPanel $env:VERSION" --generate-notes `
+            "dist/PhyloPanel-$env:VERSION-win-x64.exe" "dist/PhyloPanel-$env:VERSION-win-x64.exe.sha256"

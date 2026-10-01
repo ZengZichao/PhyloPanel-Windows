@@ -1,0 +1,37 @@
+name: Bug report
+description: Something in PhyloPanel does not work as expected
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not report security vulnerabilities here — use
+        [private vulnerability reporting](https://github.com/ZengZichao/PhyloPanel-Windows/security/advisories/new) instead.
+  - type: input
+    id: version
+    attributes:
+      label: PhyloPanel version
+      description: From the release tag or the app
+      placeholder: e.g. 0.1.1
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: e.g. Windows 11 24H2
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The exact command lines shown by the panel are especially helpful
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual behaviour
+    validations:
+      required: true
