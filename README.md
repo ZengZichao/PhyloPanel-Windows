@@ -125,6 +125,17 @@ which keeps the produced command line short and the results identical to hand ty
 
 Chinese versions live in [`docs/zh/`](docs/zh/README.md).
 
+## Product video
+
+Sixty seconds covering the reflected command tree, a two-step pipeline, the shell line it
+produces, and the tree that comes back out. 1920×1080, 30 fps, music only — no narration.
+
+[![PhyloPanel promo video: dark interface with a reroot-to-draw pipeline](docs/images/promo-video-poster.jpg)](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4)
+
+[Download the video](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4) (8.5 MB) ·
+[SHA-256](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4.sha256) ·
+[Release page](https://github.com/ZengZichao/PhyloPanel-Windows/releases/tag/v0.1.1)
+
 ## Interface preview
 
 | English / Light | 中文 / 深色 |

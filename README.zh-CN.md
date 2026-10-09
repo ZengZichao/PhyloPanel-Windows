@@ -111,6 +111,16 @@ PhyloPanel 是一个 Tauri v2 应用：Rust 后端负责进程，WebView2 窗口
 
 英文文档在 [`docs/en/`](docs/en/README.md)。
 
+## 宣传视频
+
+60 秒，依次看过反射出来的命令表、两步管道、管道生成的命令行，以及最后画出的树。1920×1080、30fps，只有背景音乐，没有旁白。
+
+[![PhyloPanel 宣传视频：深色界面里的 reroot 到 draw 管道](docs/images/promo-video-poster.jpg)](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4)
+
+[下载视频](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4)（8.5 MB）·
+[SHA-256](https://github.com/ZengZichao/PhyloPanel-Windows/releases/download/v0.1.1/PhyloPanel-promo-60s-1080p.mp4.sha256) ·
+[发布页](https://github.com/ZengZichao/PhyloPanel-Windows/releases/tag/v0.1.1)
+
 ## 界面预览
 
 | 英文 / 浅色 | 中文 / 深色 |
